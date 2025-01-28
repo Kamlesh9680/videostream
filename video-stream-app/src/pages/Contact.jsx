@@ -70,7 +70,7 @@ const ContactPage = () => {
           <h2 className="text-2xl font-bold text-[#2c698d] mb-4">
             Get in Touch
           </h2>
-          <ul className="space-y-4">
+          <ul className="space-y-4 text-black">
             <li className="flex items-center">
               <MapPin className="mr-3 text-[#2c698d]" size={20} />
               <span>Tripolia Bazaar, Rawaton Ka Bass, Jodhpur, Rajasthan 342001, India.</span>

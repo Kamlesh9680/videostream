@@ -55,7 +55,7 @@ router.post("/upload", upload.array("videos", 10), async (req, res) => {
             count: 1, // Generate one thumbnail
             folder: path.join(__dirname, "../thumbnails"), // Output folder
             filename: path.basename(thumbnailFullPath), // Thumbnail filename
-            size: "320x240", // Thumbnail dimensions
+            size: "1366x768", 
           });
       });
 
@@ -68,7 +68,7 @@ router.post("/upload", upload.array("videos", 10), async (req, res) => {
       });
 
       await video.save();
-      const videoUrl = `https://safeboxhub.in/video/${video.videoId}`;
+      const videoUrl = `https://safeboxhub.in/video-preview/${video.videoId}`;
 
       uploadedVideos.push({
         title: video.title,

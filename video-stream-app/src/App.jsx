@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
+import PreviewPage from "./pages/PreviewPage";
 import VideoPlayer from "./pages/VideoPage";
 import UploadPage from "./pages/UploadPage";
 import ContactPage from "./pages/Contact";
@@ -19,6 +20,7 @@ const App = () => {
           <Route path="/" element={<Home />} />
           <Route path="/upload" element={<UploadPage />} />
           <Route path="/video/:videoId" element={<VideoPlayer />} />
+          <Route path="/video-preview/:videoId" element={<PreviewPage />} />
           <Route path="/contact" element={<ContactPage />} />
           {/* <Route path="/about" element={<About />} /> */}
           <Route path="/terms-conditions" element={<TermsAndConditions />} />

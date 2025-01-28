@@ -7,7 +7,20 @@ const UploadPage = () => {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
   const [videoUrls, setVideoUrls] = useState([]);
+  const [copyMessage, setCopyMessage] = useState("");
 
+  const copyAllUrls = () => {
+    const allUrls = videoUrls.join("\n");
+    navigator.clipboard
+      .writeText(allUrls)
+      .then(() => {
+        setCopyMessage("Copied to clipboard!");
+        setTimeout(() => setCopyMessage(""), 2000); 
+      })
+      .catch(() => {
+        setCopyMessage("Failed to copy!");
+      });
+  };
   // Handle file change for multiple files
   const handleFileChange = (e) => {
     setFiles(e.target.files); // Store multiple files
@@ -45,7 +58,7 @@ const UploadPage = () => {
 
     try {
       const response = await axios.post(
-        "http://localhost:5000/api/upload",
+        "/api/upload",
         formData,
         {
           headers: {
@@ -72,7 +85,7 @@ const UploadPage = () => {
         <form
           onSubmit={handleSubmit}
           className=" border shadow-lg rounded-lg p-6 w-1/2"
-          style={{ borderColor: '#2c698d' }}
+          style={{ borderColor: "#2c698d" }}
         >
           {/* <div className="mb-4">
             <label
@@ -104,7 +117,7 @@ const UploadPage = () => {
               accept="video/*"
               onChange={handleFileChange}
               className="w-full  mt-2 p-3 border bg-transparent rounded-lg"
-              style={{ borderColor: '#2c698d' }}
+              style={{ borderColor: "#2c698d" }}
               multiple // Allow multiple files
               required
             />
@@ -123,10 +136,23 @@ const UploadPage = () => {
 
         {/* Video URLs */}
         <div
-          className="uploaded-urls shadow-md rounded-lg border p-4 bg-white w-1/2 "
-          style={{ maxHeight: "500px", overflowY: "auto", borderColor: '#2c698d' }}
+          className="uploaded-urls shadow-md rounded-lg border p-4 bg-white w-1/2"
+          style={{
+            maxHeight: "500px",
+            overflowY: "auto",
+            borderColor: "#2c698d",
+          }}
         >
-          <h4 className="text-lg font-semibold mb-2">Uploaded Video URLs:</h4>
+          <div className="flex justify-between items-center mb-2">
+            <h4 className="text-lg font-semibold">Uploaded Video URLs:</h4>
+            <button
+              onClick={copyAllUrls}
+              className="bg-transparent text-sm text-black uppercase hover:text-[#2c698d] bold p-0 rounded-lg mt-4  disabled:opacity-50 border-none focus:outline-none"
+            >
+              Copy All
+            </button>
+          </div>
+          {copyMessage && <p className="text-green-500">{copyMessage}</p>}
           {videoUrls.length > 0 ? (
             <ul className="list-disc pl-5">
               {videoUrls.map((url, index) => (
