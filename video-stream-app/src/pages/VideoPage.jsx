@@ -8,13 +8,12 @@ const VideoPlayer = () => {
   const [video, setVideo] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [viewCountUpdated, setViewCountUpdated] = useState(false);
 
   useEffect(() => {
     const fetchVideo = async () => {
       try {
-        const response = await axios.get(
-          `/api/videos/${videoId}`
-        );
+        const response = await axios.get(`/api/videos/${videoId}`);
         setVideo(response.data);
         setLoading(false);
       } catch (err) {
@@ -26,6 +25,17 @@ const VideoPlayer = () => {
 
     fetchVideo();
   }, [videoId]);
+
+  const handleVideoPlay = async () => {
+    if (!viewCountUpdated) {
+      try {
+        await axios.post(`/api/videos/${videoId}/views`);
+        setViewCountUpdated(true);
+      } catch (err) {
+        console.error("Error updating view count:", err);
+      }
+    }
+  };
 
   if (loading)
     return (
@@ -68,11 +78,9 @@ const VideoPlayer = () => {
             controls
             className="w-full aspect-video rounded-t-lg"
             poster="https://placehold.co/1280x720.png?text=Video+Loading..."
+            onPlay={handleVideoPlay}
           >
-            <source
-              src={`/${video.videoPath}`}
-              type="video/mp4"
-            />
+            <source src={`/${video.videoPath}`} type="video/mp4" />
             Your browser does not support the video tag.
           </video>
 

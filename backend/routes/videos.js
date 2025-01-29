@@ -34,7 +34,33 @@ router.get("/:videoId", async (req, res) => {
     }
 });
 
+router.post("/:videoId/views", async (req, res) => {
+    const { videoId } = req.params;
 
-// Export the router
+    try {
+        // Find the video by ID and increment its view count
+        const updatedVideo = await Video.findOneAndUpdate(
+            { videoId },
+            { $inc: { views: 1 } },
+            { new: true }
+        );
+
+        if (!updatedVideo) {
+            return res.status(404).json({ message: "Video not found" });
+        }
+
+        // console.log(updatedVideo.views)
+
+        res.status(200).json({
+            message: "View count updated successfully",
+            video: updatedVideo,
+        });
+    } catch (error) {
+        console.error("Error updating view count:", error);
+        res.status(500).json({ message: "Internal server error" });
+    }
+});
+
+
 
 module.exports = router;

@@ -19,13 +19,17 @@ const videoSchema = new mongoose.Schema(
       type: Number,
       required: true,
     },
+    views: {
+      type: Number,
+      default: 0
+    },
     thumbnailPath: {
       type: String,
     },
     videoId: {
       type: String,
       unique: true,
-      default: () => crypto.randomBytes(6).toString("hex"), // Generates a 12-character unique ID
+      default: () => crypto.randomBytes(6).toString("hex"),
     },
   },
   { timestamps: true }
