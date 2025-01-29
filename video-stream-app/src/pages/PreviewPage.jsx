@@ -66,7 +66,7 @@ const PreviewPage = () => {
 
   return (
     <div className=" flex flex-col">
-      {/* <Helmet>
+      <Helmet>
         <script
           type="text/javascript"
           src="//odourtaste.com/ac/9f/b1/ac9fb1270cfd01063202576d8aa10695.js"
@@ -81,7 +81,7 @@ const PreviewPage = () => {
           async
           data-cfasync="false"
         ></script>
-      </Helmet> */}
+      </Helmet>
 
       <div className="flex-1 container mx-auto px-4 py-8 flex flex-col items-center">
         <div id="container-4ced7c1d651ec6f9a4716f0cc9b5ba62"></div>
