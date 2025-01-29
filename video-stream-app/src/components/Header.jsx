@@ -12,7 +12,7 @@ const Header = () => {
         {/* Logo Section */}
         <div className="text-2xl font-bold">
           <Link className="text-white">
-            <img src="/logo2.png" className="max-w-[280px]" alt="" />
+            <img src="/logo.png" className="max-w-[180px]" alt="" />
           </Link>
         </div>
 
